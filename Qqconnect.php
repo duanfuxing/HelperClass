@@ -1,5 +1,5 @@
 <?php
-namespace Org\QQ;
+namespace QQ\Qqconnect;
 // qq第三方登录认证
 
 class Qqconnect {
