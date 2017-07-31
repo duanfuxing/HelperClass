@@ -1,7 +1,7 @@
 <?php
 
 use QQ\Qqconnect;
-use QQ\Qqconnect;
+use QQ\WeChat;
 
 class LoginController extends Controller{
 
@@ -39,7 +39,7 @@ class LoginController extends Controller{
      * @return mixed
      */
     public function wechat_login(){
-        $weChat = new WxLogin();
+        $weChat = new WeChat();
         $weChat->get_authorize_url();
     }
 
@@ -51,7 +51,7 @@ class LoginController extends Controller{
      */
     public function wechat_callback(){
 
-        $weChat = new WxLogin();
+        $weChat = new WeChat();
         $token = $weChat->get_access_token();
         $res = $weChat->get_userInfo($token->access_token, $token->openid);
         // 登录成功   完善个人操作  res为请求到的个人信息数据
