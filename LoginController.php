@@ -1,6 +1,7 @@
 <?php
 
-use QQ;
+use QQ\Qqconnect;
+use QQ\Qqconnect;
 
 class LoginController extends Controller{
 
