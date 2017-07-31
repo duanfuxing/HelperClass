@@ -2,7 +2,7 @@
 /**
  * 微信登录类
  */
-namespace Org\QQ;
+namespace QQ\WeChat;
 
 class WeChat {
 
