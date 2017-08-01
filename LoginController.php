@@ -26,9 +26,7 @@ class LoginController extends Controller{
         $res = $Qqconnect->getInfo($arr['openid'],$arr['access_token']);
 
         // 登录成功   完善个人操作  res为请求到的个人信息数据
-       
-
-       
+      
     }
 
 
