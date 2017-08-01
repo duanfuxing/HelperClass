@@ -38,7 +38,6 @@ class WeChat {
 
 
 
-
     /**
      * 根据code获取授权toke
      * @return mixed
@@ -52,8 +51,6 @@ class WeChat {
         $res = $this->https_request($token_url);
         return json_decode($res);
     }
-
-
 
 
     /**
