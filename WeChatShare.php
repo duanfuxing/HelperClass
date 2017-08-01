@@ -3,18 +3,34 @@
 namespace Wx\WeChatShare;
 
 
+/**
+ * 微信分享签名
+ *
+ * 直接实例化此类调用getSignPackage方法即可得到签名  
+ *
+ * @APPID       你申请的公众号的APPID
+ * @APPSECRET   你申请公众号的Secret
+ * @CURRENT_URL 你要分享页面的地址 
+ *
+ * 如果是接口使用此类时，你的地址参数 切记要将URL加密或将 ‘&’ 符号替换掉！
+ */
+
 class WeChatShare{
+    
+    
     private $appId;
     private $appSecret;
-    private $ticket_name;
-    private $access_token;
+    private $ticket_name;   //本地储存titcket名
+    private $access_token;  //本地储存access_token
     private $current_url;
+    
 
     /**
      * 实例化
      * WeChatShare constructor.
      * @param $appId
      * @param $appSecret
+     * @param $current_url
      */
     public function __construct($appId, $appSecret,$current_url) {
 
@@ -51,8 +67,7 @@ class WeChatShare{
 
         // 这里参数的顺序要按照 key 值 ASCII 码升序排序
         $string = "jsapi_ticket=$jsapiTicket&noncestr=$nonceStr&timestamp=$timestamp&url=$url";
-
-
+        
         $signature = sha1($string);
 
         $signPackage = array(
@@ -101,7 +116,7 @@ class WeChatShare{
             $url = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi&access_token=$accessToken";
             $res = json_decode($this->httpGet($url));
             if ($res->ticket) {
-                S($this->ticket_name,$res->ticket,7000);
+                S($this->ticket_name,$res->ticket,7000);  //本地存储，可以用redis或memcached或文件，S（） 如果不是TP框架 请替换！！！
             }
 
         }
@@ -125,7 +140,7 @@ class WeChatShare{
             $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$this->appId&secret=$this->appSecret";
             $res = json_decode($this->httpGet($url));
             if ($res->access_token) {
-                S($this->access_token,$res->access_token,7000);
+                S($this->access_token,$res->access_token,7000);  //本地存储，可以用redis或memcached或文件，S（） 如果不是TP框架 请替换！！！
             }
 
         }
