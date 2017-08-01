@@ -8,6 +8,11 @@ namespace Helper\AliSms;
  * Class Alisms
  * @package Org\Zdy
  * @author Duan
+ *
+ * 使用方式： 1）实例化此类（签名，模版ID） 可以随意使用你的申请好的短信签名和模板
+ *           2）调用send_verify（电话号，内容）
+ * 参数说明：电话号：可以同时发送多个，逗号分隔最多20个
+ *          内容：TplJsonVariable[你在阿里云设置的变量名] 固定格式这么写   兼容你一条短信中有多个变量
  */
 
 class AliSms {
@@ -29,8 +34,8 @@ class AliSms {
         $cofig = array (
             'accessKeyId' => '你的AKID',
             'accessKeySecret' => '你的AKSecret',
-            'signName' => $signName ?? '签名',
-            'templateCode' => $templateCode ?? '模板ID'
+            'signName' => $signName ?? '默认的签名',
+            'templateCode' => $templateCode ?? '默认的模板ID'
         );
         // 配置参数
         $this->accessKeyId = $cofig ['accessKeyId'];
