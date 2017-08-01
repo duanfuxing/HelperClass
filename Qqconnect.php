@@ -1,7 +1,7 @@
 <?php
 namespace QQ\Qqconnect;
-// qq第三方登录认证
 
+// qq第三方登录认证类
 class Qqconnect {
     private static $data;
     private $app_id="";
