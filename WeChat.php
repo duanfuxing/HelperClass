@@ -23,19 +23,32 @@ class WeChat {
      * 获取微信授权网址
      * @return string
      */
-    public function get_authorize_url(){
-        $state = md5(uniqid(rand(), TRUE));
+    public function get_authorize_url($is_return = true,$params = 123456){
+//        $state = md5(uniqid(rand(), TRUE));
+//        $authorize_url = 'https://open.weixin.qq.com/connect/qrconnect?appid='.$this->appId.'&redirect_uri='.urlencode($this->redirect_uri).'&response_type=code&scope=snsapi_login&state='.$state.'#wechat_redirect';
+
+        if($params){
+            session(['state' => $params]);
+            $param['state']     = $params;
+        }else{
+            $state              = md5(uniqid(rand(), TRUE));
+            session(['state' => $state.$params]);
+            $param['state']     = $state.$params;
+        }
+
         $url = "https://open.weixin.qq.com/connect/qrconnect";
         $param['appid']         = $this->appId;
         $param['redirect_uri']  = $this->redirect_uri;
         $param['response_type'] = "code";
         $param['scope']         = "snsapi_login";
-        $param['state']         = $state;
         $param                  = http_build_query($param,'','&');
         $authorize_url          = $url."?".$param.'#wechat_redirect';
-        header("Location:".$authorize_url);
+        if(!$is_return){
+            echo "<script>window.open('".$authorize_url."','_self');</script>";
+            return false;
+        }
+        return $authorize_url;
     }
-
 
 
     /**
